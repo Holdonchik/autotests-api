@@ -26,8 +26,7 @@ if _version_not_supported:
 
 
 class CourseServiceStub:
-    """Определяем gRPC-сервис
-    """
+    """Определяем gRPC-сервис."""
 
     def __init__(self, channel):
         """Constructor.
@@ -43,12 +42,11 @@ class CourseServiceStub:
 
 
 class CourseServiceServicer:
-    """Определяем gRPC-сервис
-    """
+    """Определяем gRPC-сервис."""
 
     def GetCourse(self, request, context):
-        """Определяем метод gRPC-сервиса
-        """
+        """Определяем метод gRPC-сервиса."""
+
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
@@ -70,8 +68,7 @@ def add_CourseServiceServicer_to_server(servicer, server):
 
  # This class is part of an EXPERIMENTAL API.
 class CourseService:
-    """Определяем gRPC-сервис
-    """
+    """Определяем gRPC-сервис."""
 
     @staticmethod
     def GetCourse(request,
