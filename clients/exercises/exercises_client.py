@@ -14,21 +14,21 @@ class CreateExerciseRequestDict(TypedDict):
     """Describes the structure of create exercise request."""
     title: str
     courseId: str
-    maxScoreExpand: int | None
-    minScoreExpand: int | None
-    orderIndex: int | None
+    maxScore: int
+    minScore: int
+    orderIndex: int
     description: str
     estimatedTime: str | None
 
 
 class UpdateExerciseRequestDict(TypedDict):
     """Describes the structure of update exercise request."""
-    titleExpand: str | None
-    maxScoreExpand: int | None
-    minScoreExpand: int | None
-    orderIndexExpand: int | None
-    descriptionExpand: str | None
-    estimatedTimeExpand: str | None
+    title: str | None
+    maxScore: int | None
+    minScore: int | None
+    orderIndex: int | None
+    description: str | None
+    estimatedTime: str | None
 
 
 class ExercisesClient(APIClient):
@@ -56,7 +56,7 @@ class ExercisesClient(APIClient):
         """
         Method to create exercise for specified course.
 
-        :param request: Dictionary containing title, courseId, maxScoreExpand, minScoreExpand, orderIndex,
+        :param request: Dictionary containing title, courseId, maxScore, minScore, orderIndex,
         description, estimatedTime
         :return: Server response as httpx.Response object.
         """
