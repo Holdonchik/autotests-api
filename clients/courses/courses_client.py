@@ -3,7 +3,21 @@ from typing import TypedDict
 from httpx import Response
 
 from clients.api_client import APIClient
+from clients.files.files_client import File
 from clients.private_http_builder import AuthenticationUserDict, get_private_http_client
+from clients.users.private_users_client import User
+
+
+class Course(TypedDict):
+    """Describes the structure of course."""
+    id: str
+    title: str
+    maxScore: int
+    minScore: int
+    description: str
+    previewFile: File
+    estimatedTime: str
+    createdByUser: User
 
 
 class GetCoursesQueryDict(TypedDict):
@@ -20,6 +34,11 @@ class CreateCourseRequestDict(TypedDict):
     estimatedTime: str
     previewFileId: str
     createdByUserId: str
+
+
+class CreateCourseResponseDict(TypedDict):
+    """Describes the structure of create course response."""
+    course: Course
 
 
 class UpdateCourseRequestDict(TypedDict):
@@ -80,6 +99,18 @@ class CoursesClient(APIClient):
         :return: Server response as httpx.Response object.
         """
         return self.delete(f"/api/v1/courses/{course_id}")
+
+    def create_course(self, request: CreateCourseRequestDict) -> CreateCourseResponseDict:
+        """
+        Creates course.
+
+        :param request: Dictionary containing title, maxScore, minScore, description, estimatedTime,
+         previewFileId, createdByUserId.
+        :return: Dictionary with course info: id, title, maxScore, minScore, description, previewFileId, estimatedTime,
+        createdByUser
+        """
+        response = self.create_course_api(request)
+        return response.json()
 
 def get_courses_client(user: AuthenticationUserDict) -> CoursesClient:
     """
