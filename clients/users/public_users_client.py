@@ -1,55 +1,34 @@
-from typing import TypedDict
-
 from httpx import Response
 
 from clients.api_client import APIClient
 from clients.public_http_builder import get_public_http_client
-
-
-class User(TypedDict):
-    """Describes the structure of user"""
-    id: str
-    email: str
-    lastName: str
-    firstName: str
-    middleName: str
-
-
-class CreateUserRequestDict(TypedDict):
-    """Describes the structure of create user request."""
-    email: str
-    password: str
-    lastName: str
-    firstName: str
-    middleName: str
-
-
-class CreateUserResponseDict(TypedDict):
-    """Describes the structure of create user response."""
-    user: User
+from clients.users.users_schema import CreateUserRequestSchema, CreateUserResponseSchema
 
 
 class PublicUsersClient(APIClient):
     """Client for interacting with  /api/v1/users public endpoint. """
 
-    def create_user_api(self, request: CreateUserRequestDict) -> Response:
+    def create_user_api(self, request: CreateUserRequestSchema) -> Response:
         """
         Creates new user.
 
-        :param request: Dictionary containing user's email, password, last name, first name and middle name.
+        :param request: Pydantic model containing user's email, password, last name, first name and middle name.
         :return: The server response as httpx.Response object.
         """
-        return self.post("/api/v1/users", json=request)
+        return self.post(
+            url="/api/v1/users",
+            json=request.model_dump(by_alias=True)
+        )
 
-    def create_user(self, request: CreateUserRequestDict) -> CreateUserResponseDict:
+    def create_user(self, request: CreateUserRequestSchema) -> CreateUserResponseSchema:
         """
         Creates new user.
 
-        :param request: Dictionary containing user's id, email, last name, first name and middle name.
-        :return: Dictionary containing user's id, email, last name, first name and middle name.
+        :param request: Pydantic model containing user's id, email, last name, first name and middle name.
+        :return: Server response as a pydantic model.
         """
-        response = self.create_user_api(request)
-        return response.json()
+        response = self.create_user_api(request=request)
+        return CreateUserResponseSchema.model_validate_json(response.text)
 
 
 def get_public_users_client() -> PublicUsersClient:

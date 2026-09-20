@@ -1,64 +1,47 @@
-from typing import TypedDict
-
 from httpx import Response
 
 from clients.api_client import APIClient
+from clients.authentication.authentication_schema import LoginRequestSchema, RefreshRequestSchema, LoginResponseSchema
 from clients.public_http_builder import get_public_http_client
-
-
-class Token(TypedDict):
-    """Describes the structure of authentication token."""
-    tokenType: str
-    accessToken: str
-    refreshToken: str
-
-
-class LoginRequestDict(TypedDict):
-    """Describes the structure of authentication request."""
-    email: str
-    password: str
-
-
-class LoginResponseDict(TypedDict):
-    """Describes the structure of authentication response."""
-    token: Token
-
-
-class RefreshRequestDict(TypedDict):
-    """ Describes the structure of the token refresh request."""
-    refreshToken: str
 
 
 class AuthenticationClient(APIClient):
     """ Client for interacting with the /api/v1/authentication endpoint."""
 
-    def login_api(self, request: LoginRequestDict) -> Response:
+    def login_api(self, request: LoginRequestSchema) -> Response:
         """
         Authenticates the user.
 
         :param request: A dictionary containing the user's email and password.
         :return: The server response as an httpx.Response object.
         """
-        return self.post("/api/v1/authentication/login", json=request)
+        return self.post(
+            url="/api/v1/authentication/login",
+            json=request.model_dump(by_alias=True)
+        )
 
-    def refresh_api(self, request: RefreshRequestDict) -> Response:
+    def refresh_api(self, request: RefreshRequestSchema) -> Response:
         """
         Refreshes the authentication token.
 
         :param request: A dictionary containing the refresh token.
         :return: The server response as an httpx.Response object.
         """
-        return self.post("/api/v1/authentication/refresh", json=request)
+        return self.post(
+            url="/api/v1/authentication/refresh",
+            json=request.model_dump(by_alias=True)
+        )
 
-    def login(self, request: LoginRequestDict) -> LoginResponseDict:
+    def login(self, request: LoginRequestSchema) -> LoginResponseSchema:
         """
         Logs in the user.
 
         :param request: A dictionary containing the login credentials.
-        :return: Server response as a dictionary.
+        :return: Server response as a pydantic model.
         """
         response = self.login_api(request)
-        return response.json()
+        return LoginResponseSchema.model_validate_json(response.text)
+
 
 def get_authentication_client() -> AuthenticationClient:
     """

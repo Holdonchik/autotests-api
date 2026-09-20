@@ -3,9 +3,10 @@ from typing import TypedDict
 from httpx import Response
 
 from clients.api_client import APIClient
-from clients.files.files_client import File
-from clients.private_http_builder import AuthenticationUserDict, get_private_http_client
-from clients.users.private_users_client import User
+from clients.files.files_schema import FileSchema
+
+from clients.private_http_builder import AuthenticationUserSchema, get_private_http_client
+from clients.users.users_schema import UserSchema
 
 
 class Course(TypedDict):
@@ -15,9 +16,9 @@ class Course(TypedDict):
     maxScore: int
     minScore: int
     description: str
-    previewFile: File
+    previewFile: FileSchema
     estimatedTime: str
-    createdByUser: User
+    createdByUser: UserSchema
 
 
 class GetCoursesQueryDict(TypedDict):
@@ -112,7 +113,7 @@ class CoursesClient(APIClient):
         response = self.create_course_api(request)
         return response.json()
 
-def get_courses_client(user: AuthenticationUserDict) -> CoursesClient:
+def get_courses_client(user: AuthenticationUserSchema) -> CoursesClient:
     """
     Function creates an instance of CoursesClient with a preconfigured HTTP client.
 

@@ -1,32 +1,8 @@
-from typing import TypedDict
-
 from httpx import Response
 
 from clients.api_client import APIClient
-from clients.private_http_builder import AuthenticationUserDict, get_private_http_client
-
-
-class User(TypedDict):
-    """Describes user structure"""
-    id: str
-    email: str
-    lastName: str
-    firstName: str
-    middleName: str
-
-
-class GetUserResponseDict(TypedDict):
-    """Describes the structure of get user response"""
-    user: User
-
-
-class UpdateUserRequestDict(TypedDict):
-    """Describes the structure of user update request."""
-    email: str | None
-    lastName: str | None
-    firstName: str | None
-    middleName: str | None
-
+from clients.private_http_builder import get_private_http_client, AuthenticationUserSchema
+from clients.users.users_schema import UpdateUserRequestSchema, GetUserResponseSchema
 
 class PrivateUsersClient(APIClient):
     """Client for working with /api/v1/users."""
@@ -48,15 +24,18 @@ class PrivateUsersClient(APIClient):
         """
         return self.get(f"/api/v1/users/{user_id}")
 
-    def update_user_api(self, user_id: str, request: UpdateUserRequestDict) -> Response:
+    def update_user_api(self, user_id: str, request: UpdateUserRequestSchema) -> Response:
         """
         Updates a user by ID.
 
         :param user_id: User identifier.
-        :param request: Dictionary containing email, lastName, firstName, and middleName.
+        :param request: Pydantic model containing email, lastName, firstName, and middleName.
         :return: Server response as httpx.Response object.
         """
-        return self.patch(f"/api/v1/users/{user_id}", json=request)
+        return self.patch(
+            url=f"/api/v1/users/{user_id}",
+            json=request.model_dump(by_alias=True)
+        )
 
     def delete_user_api(self, user_id: str) -> Response:
         """
@@ -67,18 +46,18 @@ class PrivateUsersClient(APIClient):
         """
         return self.delete(f"/api/v1/users/{user_id}")
 
-    def get_user(self, user_id: str) -> GetUserResponseDict:
+    def get_user(self, user_id: str) -> GetUserResponseSchema:
         """
         Retrieves user by ID.
 
         :param user_id: User identifier.
-        :return: Dictionary containing user's id, email, last name, first name and middle name.
+        :return: Server response as a pydantic model.
         """
         response = self.get_user_api(user_id)
-        return response.json()
+        return GetUserResponseSchema.model_validate_json(response.text)
 
 
-def get_private_users_client(user: AuthenticationUserDict) -> PrivateUsersClient:
+def get_private_users_client(user: AuthenticationUserSchema) -> PrivateUsersClient:
     """
     Function creates an instance of PrivateUsersClient with a preconfigured HTTP client.
 
