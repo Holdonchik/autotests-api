@@ -5,7 +5,7 @@ from pydantic import BaseModel, EmailStr, Field, ConfigDict
 
 class UserSchema(BaseModel):
     """Describes the structure of user"""
-    model_config = ConfigDict(populate_by_name=True)
+    model_config = ConfigDict(validate_by_name=True, validate_by_alias=True)
 
     id: str = Field(default_factory=lambda: str(uuid.uuid4()))
     email: EmailStr = Field(max_length=250)
@@ -16,7 +16,7 @@ class UserSchema(BaseModel):
 
 class CreateUserRequestSchema(BaseModel):
     """Describes the structure of create user request."""
-    model_config = ConfigDict(populate_by_name=True)
+    model_config = ConfigDict(validate_by_name=True, validate_by_alias=True)
 
     email: EmailStr = Field(max_length=250)
     password: str = Field(min_length=1, max_length=250)
@@ -37,7 +37,7 @@ class GetUserResponseSchema(BaseModel):
 
 class UpdateUserRequestSchema(BaseModel):
     """Describes the structure of user update request."""
-    model_config = ConfigDict(populate_by_name=True)
+    model_config = ConfigDict(validate_by_name=True, validate_by_alias=True)
 
     email: EmailStr | None = Field(max_length=250)
     last_name: str | None = Field(alias="lastName", min_length=1, max_length=50)
