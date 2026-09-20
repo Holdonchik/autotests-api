@@ -13,7 +13,7 @@ class UserSchema(BaseModel):
 
 class CreateUserRequestSchema(BaseModel):
     """Describes the structure of create user request."""
-    email: EmailStr
+    email: EmailStr = Field(max_length=250)
     password: str = Field(min_length=1, max_length=250)
     last_name: str = Field(alias="lastName", min_length=1, max_length=50)
     first_name: str = Field(alias="firstName", min_length=1, max_length=50)
