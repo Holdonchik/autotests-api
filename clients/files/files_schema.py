@@ -7,15 +7,15 @@ class FileSchema(BaseModel):
     """Describes the structure of create file."""
     id: str = Field(default_factory=lambda: str(uuid.uuid4()))
     url: HttpUrl
-    filename: str
-    directory: str
+    filename: str = Field(max_length=250)
+    directory: str = Field(max_length=250)
 
 
 class CreateFileRequestSchema(BaseModel):
     """Describes the structure of create file request."""
     filename: str
-    directory: str
-    upload_file: str
+    filename: str = Field(max_length=250)
+    directory: str = Field(max_length=250)
 
 
 class CreateFileResponseSchema(BaseModel):

@@ -11,7 +11,7 @@ class TokenSchema(BaseModel):
 class LoginRequestSchema(BaseModel):
     """Describes the structure of authentication request."""
     email: EmailStr
-    password: str
+    password: str = Field(min_length=1, max_length=250)
 
 
 class LoginResponseSchema(BaseModel):
