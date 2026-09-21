@@ -51,15 +51,7 @@ print("Create course data:", create_course_response.course)
 exercises_client = get_exercises_client(user=user_auth_data)
 
 # Initialize exercise data
-create_exercise_request = CreateExerciseRequestSchema(
-    title="Exercise 1",
-    course_id= create_course_response.course.id,
-    max_score=12,
-    min_score=1,
-    order_index=1,
-    description="Test exercise description",
-    estimated_time="2 hours"
-)
+create_exercise_request = CreateExerciseRequestSchema(course_id=create_course_response.course.id)
 
 # Create exercise
 create_exercise_response = exercises_client.create_exercise(request=create_exercise_request)
