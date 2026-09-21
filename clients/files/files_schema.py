@@ -14,8 +14,8 @@ class FileSchema(BaseModel):
 class CreateFileRequestSchema(BaseModel):
     """Describes the structure of create file request."""
     filename: str
-    filename: str = Field(max_length=250)
     directory: str = Field(max_length=250)
+    upload_file: str
 
 
 class CreateFileResponseSchema(BaseModel):

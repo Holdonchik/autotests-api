@@ -1,5 +1,7 @@
-from clients.courses.courses_client import get_courses_client, CreateCourseRequestDict
-from clients.exercises.exercises_client import get_exercises_client, CreateExerciseRequestDict
+from clients.courses.courses_client import get_courses_client
+from clients.courses.courses_schema import CreateCourseRequestSchema
+from clients.exercises.exercises_client import get_exercises_client
+from clients.exercises.exercises_schema import CreateExerciseRequestSchema
 from clients.files.files_client import get_files_client
 from clients.files.files_schema import CreateFileRequestSchema
 from clients.private_http_builder import AuthenticationUserSchema
@@ -41,40 +43,40 @@ create_file_request = CreateFileRequestSchema(
 
 # Upload file
 create_file_response = files_client.create_file(request=create_file_request)
-print("Create file data:", create_file_response)
+print("Create file data:", create_file_response.file)
 
 # Initialize CoursesClient
 courses_client = get_courses_client(user=user_auth_data)
 
 # Initialize data for course creation
-create_course_request = CreateCourseRequestDict(
+create_course_request = CreateCourseRequestSchema(
     title="Test",
-    maxScore=96,
-    minScore=1,
+    max_score=96,
+    min_score=1,
     description="Best course ever",
-    estimatedTime="16 hours",
-    previewFileId=create_file_response.file.id,
-    createdByUserId=create_user_response.user.id
+    estimated_time="16 hours",
+    preview_file_id=create_file_response.file.id,
+    created_by_user_id=create_user_response.user.id
 )
 
 # Create course
 create_course_response = courses_client.create_course(request=create_course_request)
-print("Create course data:", create_course_response)
+print("Create course data:", create_course_response.course)
 
 # Initialize ExercisesClient
 exercises_client = get_exercises_client(user=user_auth_data)
 
 # Initialize exercise data
-create_exercise_request = CreateExerciseRequestDict(
+create_exercise_request = CreateExerciseRequestSchema(
     title="Exercise 1",
-    courseId= create_course_response['course']['id'],
-    maxScore=12,
-    minScore=1,
-    orderIndex=1,
+    course_id= create_course_response.course.id,
+    max_score=12,
+    min_score=1,
+    order_index=1,
     description="Test exercise description",
-    estimatedTime="2 hours"
+    estimated_time="2 hours"
 )
 
 # Create exercise
 create_exercise_response = exercises_client.create_exercise(request=create_exercise_request)
-print("Create exercise data:", create_exercise_response)
+print("Create exercise data:", create_exercise_response.exercise)
