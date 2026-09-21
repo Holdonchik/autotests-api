@@ -1,11 +1,11 @@
 import httpx
 
-from tools.fakers import get_random_email
+from tools.fakers import fake
 
 
 # Создаем пользователя
 create_user_payload = {
-    "email": get_random_email(),
+    "email": fake.email(),
     "password": "12345",
     "lastName": "Test",
     "firstName": "Testtest",
@@ -29,7 +29,7 @@ update_user_headers = {
     "Authorization" : f"Bearer {access_token}"
 }
 update_user_payload = {
-    "email": get_random_email(),
+    "email": fake.email(),
     "password": "qwerty",
     "lastName": "Doe",
     "firstName": "John",

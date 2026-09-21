@@ -1,5 +1,3 @@
-import uuid
-
 from pydantic import BaseModel, Field, ConfigDict
 
 
@@ -7,9 +5,9 @@ class ExerciseSchema(BaseModel):
     """Describes the structure of exercise."""
     model_config = ConfigDict(validate_by_name=True, validate_by_alias=True)
 
-    id: str = Field(default_factory=lambda: str(uuid.uuid4()))
+    id: str
     title: str = Field(min_length=1, max_length=250)
-    course_id: str = Field(default_factory=lambda: str(uuid.uuid4()), alias="courseId")
+    course_id: str = Field(alias="courseId")
     max_score: int = Field(alias="maxScore")
     min_score: int = Field(alias="minScore")
     order_index: int = Field(alias="orderIndex")
@@ -26,7 +24,7 @@ class GetExercisesQuerySchema(BaseModel):
     """Describes the structure of get exercises query."""
     model_config = ConfigDict(validate_by_name=True, validate_by_alias=True)
 
-    course_id: str = Field(default_factory=lambda: str(uuid.uuid4()), alias="courseId")
+    course_id: str = Field(alias="courseId")
 
 
 class GetExercisesResponseSchema(BaseModel):
@@ -39,7 +37,7 @@ class CreateExerciseRequestSchema(BaseModel):
     model_config = ConfigDict(validate_by_name=True, validate_by_alias=True)
 
     title: str = Field(min_length=1, max_length=250)
-    course_id: str = Field(default_factory=lambda: str(uuid.uuid4()), alias="courseId")
+    course_id: str = Field(alias="courseId")
     max_score: int = Field(alias="maxScore")
     min_score: int = Field(alias="minScore")
     order_index: int = Field(alias="orderIndex")

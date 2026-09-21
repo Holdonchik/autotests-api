@@ -1,13 +1,12 @@
-import uuid
-
 from pydantic import BaseModel, EmailStr, Field, ConfigDict
+from tools.fakers import fake
 
 
 class UserSchema(BaseModel):
     """Describes the structure of user"""
     model_config = ConfigDict(validate_by_name=True, validate_by_alias=True)
 
-    id: str = Field(default_factory=lambda: str(uuid.uuid4()))
+    id: str
     email: EmailStr = Field(max_length=250)
     last_name: str = Field(alias="lastName", min_length=1, max_length=50)
     first_name: str = Field(alias="firstName", min_length=1, max_length=50)
@@ -18,11 +17,11 @@ class CreateUserRequestSchema(BaseModel):
     """Describes the structure of create user request."""
     model_config = ConfigDict(validate_by_name=True, validate_by_alias=True)
 
-    email: EmailStr = Field(max_length=250)
-    password: str = Field(min_length=1, max_length=250)
-    last_name: str = Field(alias="lastName", min_length=1, max_length=50)
-    first_name: str = Field(alias="firstName", min_length=1, max_length=50)
-    middle_name: str = Field(alias="middleName", min_length=1, max_length=50)
+    email: EmailStr = Field(max_length=250, default=fake.email())
+    password: str = Field(min_length=1, max_length=250, default_factory=fake.password)
+    last_name: str = Field(alias="lastName", min_length=1, max_length=50, default_factory=fake.last_name)
+    first_name: str = Field(alias="firstName", min_length=1, max_length=50, default_factory=fake.first_name)
+    middle_name: str = Field(alias="middleName", min_length=1, max_length=50, default_factory=fake.middle_name)
 
 
 class CreateUserResponseSchema(BaseModel):
@@ -39,10 +38,10 @@ class UpdateUserRequestSchema(BaseModel):
     """Describes the structure of user update request."""
     model_config = ConfigDict(validate_by_name=True, validate_by_alias=True)
 
-    email: EmailStr | None = Field(max_length=250)
-    last_name: str | None = Field(alias="lastName", min_length=1, max_length=50)
-    first_name: str | None = Field(alias="firstName", min_length=1, max_length=50)
-    middle_name: str | None = Field(alias="middleName", min_length=1, max_length=50)
+    email: EmailStr | None = Field(max_length=250, default_factory=fake.email)
+    last_name: str | None = Field(alias="lastName", min_length=1, max_length=50, default_factory=fake.last_name)
+    first_name: str | None = Field(alias="firstName", min_length=1, max_length=50, default_factory=fake.first_name)
+    middle_name: str | None = Field(alias="middleName", min_length=1, max_length=50, default_factory=fake.first_name)
 
 
 class UpdateUserResponseSchema(BaseModel):
