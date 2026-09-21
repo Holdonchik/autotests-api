@@ -78,7 +78,7 @@ class ExercisesClient(APIClient):
         response = self.get_exercise_api(exercise_id=exercise_id)
         return GetExerciseResponseSchema.model_validate_json(response.text)
 
-    def  get_exercises(self, query: GetExercisesQuerySchema) -> GetExercisesResponseSchema:
+    def get_exercises(self, query: GetExercisesQuerySchema) -> GetExercisesResponseSchema:
         """
         Gets the list of exercises for specified course.
 
