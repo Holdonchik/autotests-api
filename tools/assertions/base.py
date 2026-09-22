@@ -19,7 +19,7 @@ def assert_equal(actual: Any, expected: Any, name: str):
     """
     Verifies that actual value equals to expected value.
 
-    :param name: Name of the variable being checked.
+    :param name: The name of the value being verified.
     :param actual: Actual value.
     :param expected: Expected value.
     :raises AssertionError: If actual value is not equal to expected value.
@@ -28,4 +28,17 @@ def assert_equal(actual: Any, expected: Any, name: str):
         f'Incorrect value: "{name}". '
         f'Expected value: {expected}. '
         f'Actual value: {actual}'
+    )
+
+def assert_is_true(actual: Any, name: str):
+    """
+    Verifies that actual value evaluates to True
+
+    :param name: The name of the value being verified.
+    :param actual: Actual value.
+    :raises AssertionError: If actual value evaluates to False.
+    """
+    assert actual, (
+        f'Incorrect value: "{name}". '
+        f'Expected true value but got: {actual}'
     )
