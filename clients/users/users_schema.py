@@ -17,7 +17,7 @@ class CreateUserRequestSchema(BaseModel):
     """Describes the structure of create user request."""
     model_config = ConfigDict(validate_by_name=True, validate_by_alias=True)
 
-    email: EmailStr = Field(max_length=250, default=fake.email())
+    email: EmailStr = Field(max_length=250, default_factory=fake.email)
     password: str = Field(min_length=1, max_length=250, default_factory=fake.password)
     last_name: str = Field(alias="lastName", min_length=1, max_length=50, default_factory=fake.last_name)
     first_name: str = Field(alias="firstName", min_length=1, max_length=50, default_factory=fake.first_name)
