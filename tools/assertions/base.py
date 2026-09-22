@@ -32,9 +32,9 @@ def assert_equal(actual: Any, expected: Any, name: str):
 
 def assert_is_true(actual: Any, name: str):
     """
-    Verifies that actual value evaluates to True
+    Verifies that actual value evaluates to True.
 
-    :param name: The name of the value being verified.
+    :param name: Name of the value being verified.
     :param actual: Actual value.
     :raises AssertionError: If actual value evaluates to False.
     """
