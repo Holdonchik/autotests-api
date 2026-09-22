@@ -26,11 +26,15 @@ class CreateUserRequestSchema(BaseModel):
 
 class CreateUserResponseSchema(BaseModel):
     """Describes the structure of create user response."""
+    model_config = ConfigDict(extra="forbid")
+
     user: UserSchema
 
 
 class GetUserResponseSchema(BaseModel):
     """Describes the structure of get user response"""
+    model_config = ConfigDict(extra="forbid")
+
     user: UserSchema
 
 
@@ -46,4 +50,6 @@ class UpdateUserRequestSchema(BaseModel):
 
 class UpdateUserResponseSchema(BaseModel):
     """Describes the structure of user update response."""
+    model_config = ConfigDict(extra="forbid")
+
     user: UserSchema

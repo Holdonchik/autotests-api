@@ -1,4 +1,4 @@
-from pydantic import BaseModel, Field, EmailStr
+from pydantic import BaseModel, Field, EmailStr, ConfigDict
 from tools.fakers import fake
 
 
@@ -17,6 +17,8 @@ class LoginRequestSchema(BaseModel):
 
 class LoginResponseSchema(BaseModel):
     """Describes the structure of authentication response."""
+    model_config = ConfigDict(extra="forbid")
+
     token: TokenSchema
 
 
