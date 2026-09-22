@@ -44,8 +44,8 @@ class CreateCourseRequestSchema(BaseModel):
     min_score: int = Field(alias="minScore", default_factory=fake.min_score)
     description: str = Field(min_length=1, default_factory=fake.text)
     estimated_time: str = Field(alias="estimatedTime", default_factory=fake.estimated_time)
-    preview_file_id: str = Field(alias="previewFileId", default_factory=fake.uuid4)
-    created_by_user_id: str = Field(alias="createdByUserId", default_factory=fake.uuid4)
+    preview_file_id: str = Field(alias="previewFileId", default_factory=fake.uuid4) # по умолчанию невалидный id
+    created_by_user_id: str = Field(alias="createdByUserId", default_factory=fake.uuid4) # по умолчанию невалидный id
 
 
 class CreateCourseResponseSchema(BaseModel):
