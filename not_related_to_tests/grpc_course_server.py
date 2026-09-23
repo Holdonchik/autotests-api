@@ -13,10 +13,10 @@ class CourseServiceServicer(course_service_pb2_grpc.CourseServiceServicer):
         """GetCourse method processes incoming request."""
         print(f'Request received for GetCourse method regarding the course with ID: {request.course_id}')
 
-        return course_service_pb2.GetCourseResponse(course_id=request.course_id ,
+        return course_service_pb2.GetCourseResponse(course_id=request.course_id,
                                                     title="Автотесты API",
                                                     description="Будем изучать написание API автотестов"
-        )
+                                                    )
 
 def serve():
     """Method creates and starts a gRPC server."""
