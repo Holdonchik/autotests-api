@@ -1,16 +1,21 @@
+from functools import lru_cache
+
 from httpx import Client
-from pydantic import BaseModel, EmailStr
+from pydantic import BaseModel, EmailStr, ConfigDict
 
 from clients.authentication.authentication_client import get_authentication_client
 from clients.authentication.authentication_schema import LoginRequestSchema
 
 
 class AuthenticationUserSchema(BaseModel):
-    """Describes user authentication data"""
+    """Describes user authentication data."""
+    model_config = ConfigDict(frozen=True)
+
     email: EmailStr
     password: str
 
 
+@lru_cache
 def get_private_http_client(user: AuthenticationUserSchema) -> Client:
     """
     Function creates httpx.Client instance with user authentication.
