@@ -20,8 +20,8 @@ def assert_user(actual: UserSchema, expected: UserSchema):
     """
     Verifies that user's id, email, last_name, first_name, middle_name have expected values.
 
-    :param actual: Actual id, email, last_name, first_name, middle_name.
-    :param expected: Expected id, email, last_name, first_name, middle_name.
+    :param actual: UserSchema with actual id, email, last_name, first_name, middle_name.
+    :param expected: UserSchema with expected id, email, last_name, first_name, middle_name.
     :raises AssertionError: If at least one value does not match.
     """
     assert_equal(actual.id, expected.id, "id")
