@@ -1,0 +1,10 @@
+<catalog>
+    <book id="1">
+        <title>Python для начинающих</title>
+        <author>Иван Иванов</author>
+    </book>
+    <book id="2">
+        <title>Продвинутый Python</title>
+        <author>Петр Петров</author>
+    </book>
+</catalog>
