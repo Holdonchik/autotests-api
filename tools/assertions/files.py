@@ -1,7 +1,10 @@
+from clients.errors_schema import ValidationErrorResponseSchema, ValidationErrorSchema, InternalErrorResponseSchema
 from clients.files.files_schema import CreateFileResponseSchema, CreateFileRequestSchema, GetFileResponseSchema, \
     FileSchema
 from tools.assertions.base import assert_equal
 import httpx
+
+from tools.assertions.errors import assert_validation_error_response, assert_internal_error_response
 
 
 def assert_create_file_response(request: CreateFileRequestSchema, response: CreateFileResponseSchema):
@@ -57,3 +60,54 @@ def assert_get_file_response(
     :raises AssertionError: IF data does not match.
     """
     assert_file(get_file_response.file, create_file_response.file)
+
+def assert_create_file_with_empty_filename_response(actual: ValidationErrorResponseSchema):
+    """
+    Verifies that response to create file request with empty 'filename' value matches expected validation error.
+
+    :param actual: API response with validation error to check.
+    :raises AssertionError: If actual response does not match the expected.
+    """
+    expected = ValidationErrorResponseSchema(
+        details=[
+            ValidationErrorSchema(
+                type="string_too_short",
+                input="",
+                context={"min_length": 1},
+                message="String should have at least 1 character",
+                location=["body", "filename"]
+            )
+        ]
+    )
+    assert_validation_error_response(actual, expected)
+
+
+def assert_create_file_with_empty_directory_response(actual: ValidationErrorResponseSchema):
+    """
+    Verifies that response to create file request with empty 'directory' value matches expected validation error.
+
+    :param actual: API response with validation error to check.
+    :raises AssertionError: If actual response does not match the expected.
+    """
+    expected = ValidationErrorResponseSchema(
+        details=[
+            ValidationErrorSchema(
+                type="string_too_short",
+                input="",
+                context={"min_length": 1},
+                message="String should have at least 1 character",
+                location=["body", "directory"]
+            )
+        ]
+    )
+    assert_validation_error_response(actual, expected)
+
+def assert_file_not_found_response(actual: InternalErrorResponseSchema):
+    """
+    To verify error when file not found.
+
+    :param actual: Actual response.
+    :raises AssertionError: If actual response is not "File not found".
+    """
+    expected = InternalErrorResponseSchema(details="File not found")
+    assert_internal_error_response(actual, expected)
