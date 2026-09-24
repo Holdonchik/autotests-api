@@ -1,4 +1,4 @@
-from pydantic import BaseModel, Field, ConfigDict
+from pydantic import BaseModel, Field, ConfigDict, UUID4
 from tools.fakers import fake
 from clients.files.files_schema import FileSchema
 from clients.users.users_schema import UserSchema
@@ -8,7 +8,7 @@ class CourseSchema(BaseModel):
     """Describes the structure of course."""
     model_config = ConfigDict(validate_by_name=True, validate_by_alias=True)
 
-    id: str
+    id: UUID4
     title: str = Field(min_length=1, max_length=250)
     max_score: int = Field(alias="maxScore")
     min_score: int = Field(alias="minScore")

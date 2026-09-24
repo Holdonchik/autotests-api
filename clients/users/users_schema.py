@@ -1,4 +1,5 @@
-from pydantic import BaseModel, EmailStr, Field, ConfigDict
+from pydantic import BaseModel, EmailStr, Field, ConfigDict, UUID4
+
 from tools.fakers import fake
 
 
@@ -6,7 +7,7 @@ class UserSchema(BaseModel):
     """Describes the structure of user"""
     model_config = ConfigDict(validate_by_name=True, validate_by_alias=True)
 
-    id: str
+    id: UUID4
     email: EmailStr = Field(max_length=250)
     last_name: str = Field(alias="lastName", min_length=1, max_length=50)
     first_name: str = Field(alias="firstName", min_length=1, max_length=50)

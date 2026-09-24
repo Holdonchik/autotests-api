@@ -1,4 +1,4 @@
-from pydantic import BaseModel, Field, ConfigDict
+from pydantic import BaseModel, Field, ConfigDict, UUID4
 from tools.fakers import fake
 
 
@@ -6,7 +6,7 @@ class ExerciseSchema(BaseModel):
     """Describes the structure of exercise."""
     model_config = ConfigDict(validate_by_name=True, validate_by_alias=True)
 
-    id: str
+    id: UUID4
     title: str = Field(min_length=1, max_length=250)
     course_id: str = Field(alias="courseId")
     max_score: int = Field(alias="maxScore")
