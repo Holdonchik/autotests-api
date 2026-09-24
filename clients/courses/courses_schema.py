@@ -20,6 +20,8 @@ class CourseSchema(BaseModel):
 
 class GetCourseResponseSchema(BaseModel):
     """Describes the structure of get course response."""
+    model_config = ConfigDict(extra="forbid")
+
     course: CourseSchema
 
 
@@ -32,6 +34,8 @@ class GetCoursesQuerySchema(BaseModel):
 
 class GetCoursesResponseSchema(BaseModel):
     """Describes the structure of get courses response."""
+    model_config = ConfigDict(extra="forbid")
+
     courses: list[CourseSchema]
 
 
@@ -50,6 +54,8 @@ class CreateCourseRequestSchema(BaseModel):
 
 class CreateCourseResponseSchema(BaseModel):
     """Describes the structure of create course response."""
+    model_config = ConfigDict(extra="forbid")
+
     course: CourseSchema
 
 
@@ -65,4 +71,6 @@ class UpdateCourseRequestSchema(BaseModel):
 
 class UpdateCourseResponseSchema(BaseModel):
     """Describes the structure of update course response."""
+    model_config = ConfigDict(extra="forbid")
+
     course: CourseSchema

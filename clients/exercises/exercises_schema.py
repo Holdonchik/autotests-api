@@ -18,6 +18,8 @@ class ExerciseSchema(BaseModel):
 
 class GetExerciseResponseSchema(BaseModel):
     """Describes the structure of get exercises response."""
+    model_config = ConfigDict(extra="forbid")
+
     exercise: ExerciseSchema
 
 
@@ -30,6 +32,8 @@ class GetExercisesQuerySchema(BaseModel):
 
 class GetExercisesResponseSchema(BaseModel):
     """Describes the structure of get exercises response."""
+    model_config = ConfigDict(extra="forbid")
+
     exercises: list[ExerciseSchema]
 
 
@@ -47,6 +51,8 @@ class CreateExerciseRequestSchema(BaseModel):
 
 class CreateExerciseResponseSchema(BaseModel):
     """Describes the structure of create exercise response."""
+    model_config = ConfigDict(extra="forbid")
+
     exercise : ExerciseSchema
 
 
@@ -64,4 +70,6 @@ class UpdateExerciseRequestSchema(BaseModel):
 
 class UpdateExerciseResponseSchema(BaseModel):
     """Describes the structure of update exercise response."""
+    model_config = ConfigDict(extra="forbid")
+
     exercise : ExerciseSchema

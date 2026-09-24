@@ -1,4 +1,4 @@
-from pydantic import BaseModel, HttpUrl, Field
+from pydantic import BaseModel, HttpUrl, Field, ConfigDict
 from tools.fakers import fake
 
 
@@ -12,6 +12,8 @@ class FileSchema(BaseModel):
 
 class GetFileResponseSchema(BaseModel):
     """Describes the structure of get file response."""
+    model_config = ConfigDict(extra="forbid")
+
     file: FileSchema
 
 
@@ -24,4 +26,6 @@ class CreateFileRequestSchema(BaseModel):
 
 class CreateFileResponseSchema(BaseModel):
     """Describes the structure of create file response"""
+    model_config = ConfigDict(extra="forbid")
+
     file: FileSchema
