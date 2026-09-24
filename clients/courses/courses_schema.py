@@ -39,10 +39,10 @@ class CreateCourseRequestSchema(BaseModel):
     """Describes the structure of create course request."""
     model_config = ConfigDict(validate_by_name=True, validate_by_alias=True)
 
-    title: str = Field(min_length=1, max_length=250, default_factory=fake.sentence)
+    title: str = Field(default_factory=fake.sentence)
     max_score: int = Field(alias="maxScore", default_factory=fake.max_score)
     min_score: int = Field(alias="minScore", default_factory=fake.min_score)
-    description: str = Field(min_length=1, default_factory=fake.text)
+    description: str = Field(default_factory=fake.text)
     estimated_time: str = Field(alias="estimatedTime", default_factory=fake.estimated_time)
     preview_file_id: str = Field(alias="previewFileId", default_factory=fake.uuid4) # по умолчанию невалидный id
     created_by_user_id: str = Field(alias="createdByUserId", default_factory=fake.uuid4) # по умолчанию невалидный id
@@ -57,10 +57,10 @@ class UpdateCourseRequestSchema(BaseModel):
     """Describes the structure of update course request."""
     model_config = ConfigDict(validate_by_name=True, validate_by_alias=True)
 
-    title: str | None = Field(min_length=1, max_length=250, default_factory=fake.sentence)
+    title: str | None = Field(default_factory=fake.sentence)
     max_score: int | None = Field(alias="maxScore", default_factory=fake.max_score)
     min_score: int | None = Field(alias="minScore", default_factory=fake.min_score)
-    description: str | None = Field(min_length=1, default_factory=fake.text)
+    description: str | None = Field(default_factory=fake.text)
     estimated_time: str | None = Field(alias="estimatedTime", default_factory=fake.estimated_time)
 
 class UpdateCourseResponseSchema(BaseModel):

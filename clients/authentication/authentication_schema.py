@@ -12,7 +12,7 @@ class TokenSchema(BaseModel):
 class LoginRequestSchema(BaseModel):
     """Describes the structure of authentication request."""
     email: EmailStr = Field(default_factory=fake.email) # по умолчанию невалидный адрес
-    password: str = Field(min_length=1, max_length=250, default_factory=fake.password) # по умолчанию невалидный пароль
+    password: str = Field(default_factory=fake.password) # по умолчанию невалидный пароль
 
 
 class LoginResponseSchema(BaseModel):

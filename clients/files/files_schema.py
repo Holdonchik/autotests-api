@@ -10,10 +10,15 @@ class FileSchema(BaseModel):
     directory: str = Field(max_length=250)
 
 
+class GetFileResponseSchema(BaseModel):
+    """Describes the structure of get file response."""
+    file: FileSchema
+
+
 class CreateFileRequestSchema(BaseModel):
     """Describes the structure of create file request."""
     filename: str = Field(default_factory=lambda: f"{fake.uuid4()}.jpg")
-    directory: str = Field(max_length=250, default="tests")
+    directory: str = Field(default="tests")
     upload_file: str
 
 
