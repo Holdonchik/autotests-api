@@ -9,7 +9,7 @@ class ValidationErrorSchema(BaseModel):
 
     type: str
     input: Any
-    context: dict[str, Any] = Field(alias="ctx")
+    context: dict[str, Any] | None = Field(default=None, alias="ctx")
     message: str = Field(alias="msg")
     location: list[str] = Field(alias="loc")
 

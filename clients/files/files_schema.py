@@ -29,3 +29,9 @@ class CreateFileResponseSchema(BaseModel):
     model_config = ConfigDict(extra="forbid")
 
     file: FileSchema
+
+class CreateFileInvalidRequestSchema(BaseModel):
+    """Describes the structure to form incorrect create file request."""
+    filename: str | None = Field(default_factory=lambda: f"{fake.uuid4()}.jpg")
+    directory: str | None = Field(default="tests")
+    upload_file: str | None

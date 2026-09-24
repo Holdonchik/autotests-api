@@ -102,6 +102,26 @@ def assert_create_file_with_empty_directory_response(actual: ValidationErrorResp
     )
     assert_validation_error_response(actual, expected)
 
+def assert_create_file_with_no_filename_response(actual: ValidationErrorResponseSchema):
+    """
+    Verifies that response to create file request with no file name required field value matches expected validation
+    error.
+
+    :param actual: API response with validation error to check.
+    :raises AssertionError: If actual response does not match the expected.
+    """
+    expected = ValidationErrorResponseSchema(
+        details=[
+            ValidationErrorSchema(
+                type="missing",
+                input=None,
+                message="Field required",
+                location=["body", "filename"]
+            )
+        ]
+    )
+    assert_validation_error_response(actual, expected)
+
 def assert_file_not_found_response(actual: InternalErrorResponseSchema):
     """
     To verify error when file not found.
@@ -135,3 +155,4 @@ def assert_get_file_with_incorrect_file_id_response(actual: ValidationErrorRespo
         ]
     )
     assert_validation_error_response(actual, expected)
+
