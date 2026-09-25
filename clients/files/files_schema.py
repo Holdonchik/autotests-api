@@ -1,10 +1,10 @@
-from pydantic import BaseModel, HttpUrl, Field, ConfigDict, UUID4
+from pydantic import BaseModel, HttpUrl, Field, ConfigDict
 from tools.fakers import fake
 
 
 class FileSchema(BaseModel):
     """Describes the structure of create file."""
-    id: UUID4
+    id: str
     url: HttpUrl
     filename: str = Field(max_length=250)
     directory: str = Field(max_length=250)

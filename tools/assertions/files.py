@@ -9,7 +9,6 @@ from tools.assertions.errors import assert_validation_error_response, assert_int
 
 def assert_create_file_response(request: CreateFileRequestSchema, response: CreateFileResponseSchema):
     """
-    Проверяет, что ответ на создание файла соответствует запросу.
     Verifies that create files response matched the request/
 
     :param request: Initial request.
@@ -34,7 +33,6 @@ def assert_file_is_accessible(url: str):
 
 def assert_file(actual: FileSchema, expected: FileSchema):
     """
-    Проверяет, что фактические данные файла соответствуют ожидаемым.
     Verifies that actual file data matched expected.
 
     :param actual: Actual file data.
@@ -52,7 +50,6 @@ def assert_get_file_response(
         create_file_response: CreateFileResponseSchema
 ):
     """
-    Проверяет, что ответ на получение файла соответствует ответу на его создание.
     Verifies that get file response data matches create file response data.
 
     :param get_file_response: API response to get file.
