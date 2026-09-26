@@ -14,7 +14,7 @@ def assert_create_course_response(
 
     :param request: Initial create course request.
     :param response: API response with created course data.
-    :raises AssertionError: If at least one field do not match.
+    :raises AssertionError: If at least one field does not match.
     """
     assert_equal(response.course.title, request.title, "title")
     assert_equal(response.course.max_score, request.max_score, "max_score")
@@ -33,7 +33,7 @@ def assert_update_course_response(
 
     :param request: Initial update course request.
     :param response: API response with updated course data.
-    :raises AssertionError: If at least one field do not match.
+    :raises AssertionError: If at least one field does not match.
     """
     assert_equal(response.course.title, request.title, "title")
     assert_equal(response.course.max_score, request.max_score, "max_score")
@@ -50,7 +50,7 @@ def assert_partial_update_course_response(
 
     :param request: Initial update course request.
     :param response: API response with updated course data.
-    :raises AssertionError: If at least one field do not match.
+    :raises AssertionError: If at least one field does not match.
     """
     if request.title is not None:
         assert_equal(response.course.title, request.title, "title")
