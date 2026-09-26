@@ -11,7 +11,7 @@ def assert_create_exercise_response(
 
     :param request: Initial create exercise request.
     :param response: API response with created exercise data.
-    :raises AssertionError: If at least one field does not match.
+    :raises AssertionError: if at least one of the fields does not match.
     """
     assert_equal(response.exercise.title, request.title, "title")
     assert_equal(response.exercise.course_id, request.course_id, "course_id")
