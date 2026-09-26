@@ -1,3 +1,5 @@
+from collections.abc import Callable
+
 from pydantic import BaseModel
 import pytest
 
@@ -22,3 +24,17 @@ def function_exercise(function_course: CourseFixture, exercises_client: Exercise
     request = CreateExerciseRequestSchema(course_id=function_course.response.course.id)
     response = exercises_client.create_exercise(request=request)
     return ExerciseFixture(request=request, response=response)
+
+@pytest.fixture
+def function_exercises_factory(
+        function_course: CourseFixture,
+        exercises_client: ExercisesClient
+) -> Callable[[int], list[CreateExerciseResponseSchema]]:
+    def _function_exercises_factory(required_exercises_count: int) -> list[CreateExerciseResponseSchema]:
+        responses = []
+        for _ in range(required_exercises_count):
+            request = CreateExerciseRequestSchema(course_id=function_course.response.course.id)
+            response = exercises_client.create_exercise(request=request)
+            responses.append(response)
+        return responses
+    return _function_exercises_factory
