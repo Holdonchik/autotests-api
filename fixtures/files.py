@@ -1,3 +1,5 @@
+import os
+
 import pytest
 from pydantic import BaseModel
 
@@ -20,5 +22,7 @@ def files_client(function_user: UserFixture) -> FilesClient:
 @pytest.fixture
 def function_file(files_client: FilesClient) -> FileFixture:
     request = CreateFileRequestSchema(upload_file="./testdata/files/Botticelli-primavera.jpg")
+    # if not os.path.exists(request.upload_file):
+    #     raise FileNotFoundError(f"File not found: {request.upload_file}")
     response = files_client.create_file(request)
     return FileFixture(request=request, response=response)

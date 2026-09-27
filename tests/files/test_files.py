@@ -1,3 +1,4 @@
+import os
 from http import HTTPStatus
 
 import pytest
@@ -21,6 +22,8 @@ class TestFiles:
     # region Positive cases
     def test_create_file(self, files_client: FilesClient, function_file: FileFixture):
         request = CreateFileRequestSchema(upload_file="./testdata/files/Botticelli-primavera.jpg")
+        # if not os.path.exists(request.upload_file):
+        #     raise FileNotFoundError(f"File not found: {request.upload_file}")
         response = files_client.create_file_api(request)
         response_data = CreateFileResponseSchema.model_validate_json(response.text)
         assert_status_code(actual=response.status_code, expected=HTTPStatus.OK)
