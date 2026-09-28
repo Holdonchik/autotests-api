@@ -26,8 +26,8 @@ from fixtures.files import function_file, FileFixture
 @allure.tag(AllureTag.FILES, AllureTag.REGRESSION)
 @allure.epic(AllureEpic.LMS)
 @allure.feature(AllureFeature.FILES)
-@allure.suite(AllureEpic.LMS)
-@allure.parent_suite(AllureFeature.FILES)
+@allure.parent_suite(AllureEpic.LMS)
+@allure.suite(AllureFeature.FILES)
 class TestFiles:
     # region Positive cases
     @allure.title("Create file")
