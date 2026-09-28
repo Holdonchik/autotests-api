@@ -1,6 +1,9 @@
 from typing import Any, Sized
 
+import allure
 
+
+@allure.step("Check that response status code equals to {expected}")
 def assert_status_code(actual: int, expected: int):
     """
     Verifies that actual response status code matches the expected one.
@@ -15,6 +18,7 @@ def assert_status_code(actual: int, expected: int):
         f'Actual status code: {actual}'
     )
 
+@allure.step("Check that {name} equals to {expected}")
 def assert_equal(actual: Any, expected: Any, name: str):
     """
     Verifies that actual value equals to expected value.
@@ -30,6 +34,7 @@ def assert_equal(actual: Any, expected: Any, name: str):
         f'Actual value: {actual}'
     )
 
+@allure.step("Check that {name} is true")
 def assert_is_true(actual: Any, name: str):
     """
     Verifies that actual value evaluates to True.
@@ -52,8 +57,13 @@ def assert_length(actual: Sized, expected: Sized, name: str):
     :param expected: Expected object.
     :raises AssertionError: If lengths do not match.
     """
-    assert len(actual) == len(expected), (
-        f'Incorrect object length: "{name}". '
-        f'Expected length: {len(expected)}. '
-        f'Actual length: {len(actual)}'
-    )
+    with allure.step(f"Check that length of {name} equals to {len(expected)}"):
+        assert len(actual) == len(expected), (
+            f'Incorrect object length: "{name}". '
+            f'Expected length: {len(expected)}. '
+            f'Actual length: {len(actual)}'
+        )
+
+"""
+Для assert_length использован with allure.step(...) – так как мы передаем динамическое значение (длину списка).
+"""

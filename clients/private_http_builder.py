@@ -1,5 +1,4 @@
 from functools import lru_cache
-
 from httpx import Client
 from pydantic import BaseModel, EmailStr, ConfigDict
 

@@ -1,3 +1,4 @@
+import allure
 from httpx import Response
 
 from clients.api_client import APIClient
@@ -8,6 +9,7 @@ from clients.public_http_builder import get_public_http_client
 class AuthenticationClient(APIClient):
     """ Client for interacting with the /api/v1/authentication endpoint."""
 
+    @allure.step("Authenticate user")
     def login_api(self, request: LoginRequestSchema) -> Response:
         """
         Authenticates the user.
@@ -20,6 +22,7 @@ class AuthenticationClient(APIClient):
             json=request.model_dump(by_alias=True)
         )
 
+    @allure.step("Refresh authentication token")
     def refresh_api(self, request: RefreshRequestSchema) -> Response:
         """
         Refreshes the authentication token.
