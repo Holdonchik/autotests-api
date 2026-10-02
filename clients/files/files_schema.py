@@ -1,4 +1,4 @@
-from pydantic import BaseModel, HttpUrl, Field, ConfigDict
+from pydantic import BaseModel, HttpUrl, Field, ConfigDict, FilePath
 from tools.fakers import fake
 
 
@@ -21,7 +21,7 @@ class CreateFileRequestSchema(BaseModel):
     """Describes the structure of create file request."""
     filename: str = Field(default_factory=lambda: f"{fake.uuid4()}.jpg")
     directory: str = Field(default="tests")
-    upload_file: str
+    upload_file: FilePath
 
 
 class CreateFileResponseSchema(BaseModel):
