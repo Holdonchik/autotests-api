@@ -40,3 +40,4 @@ def get_public_users_client() -> PublicUsersClient:
     :return: Ready-to-use PublicUsersClient.
     """
     return PublicUsersClient(client=get_public_http_client())
+
