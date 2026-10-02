@@ -27,4 +27,3 @@ with open("test.json", "r", encoding="utf-8") as file:
 # Запись (dict as jSON file)
 with open("json_from_dict.json", "w", encoding="utf-8") as file:
     json.dump(data, file, indent=4, ensure_ascii=False)  # Сохраняем JSON в файл
-
